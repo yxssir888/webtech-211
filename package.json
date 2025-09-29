@@ -1,0 +1,20 @@
+{
+  "name": "webtech-211",
+  "version": "1.0.0",
+  "description": "Lab1 Technoweb Project - serveur Node.js simple pour apprentissage",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yxssir888/webtech-211.git"
+  },
+  "author": "Adja Sira Doumbouya <adjasira.doumbouya@edu.ece.fr>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yxssir888/webtech-211/issues"
+  },
+  "homepage": "https://github.com/yxssir888/webtech-211#readme"
+}
