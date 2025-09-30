@@ -1,7 +1,10 @@
-// Import a module
-const http = require('http')
-const handles = require('./handles')
+const express = require("express");
+const app = express();
+const router = require("./handles");
 
-http
-.createServer(handles.serverHandle)
-.listen(8080)
+// Use the router for all routes
+app.use("/", router);
+// Start the server
+app.listen(8080, () => {
+  console.log("Server running on http://localhost:8080");
+});
