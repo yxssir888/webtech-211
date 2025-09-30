@@ -18,7 +18,20 @@ cd webtech-211
 npm install
 ```
 
-## Utilisation
+## Fonctionnalités
+
+- Serveur HTTP basique avec Node.js
+- Rechargement automatique avec Nodemon (`npm run dev`)
+- Gestion de routes :
+  - `/` : page d’accueil avec liens vers les autres routes
+  - `/hello?name=...` :
+    - Si le nom est "Adja", réponse personnalisée avec une courte intro
+    - Si le nom est aléatoire, réponse classique "Hello [name]"
+    - Si aucun nom, réponse "Hello anonymous"
+  - `/about` : lecture et affichage du fichier `about.json`
+  - `/[nom]` : route dynamique qui affiche le contenu JSON correspondant si le fichier existe
+- Gestion des erreurs 404 pour les routes inconnues
+
 
 ### Lancer le script simple
 
