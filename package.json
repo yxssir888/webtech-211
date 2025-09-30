@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/yxssir888/webtech-211/issues"
   },
-  "homepage": "https://github.com/yxssir888/webtech-211#readme"
+  "homepage": "https://github.com/yxssir888/webtech-211#readme",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
