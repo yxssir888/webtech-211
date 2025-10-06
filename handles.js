@@ -2,8 +2,10 @@ const fs = require("fs");
 const pathModule = require("path");
 const express = require("express");
 const router = express.Router();
-  const db = require("../lab2/model.js");
-  
+const db = require("../lab2/model.js");
+const cors = require("cors");  
+//use cors middleware
+router.use(cors());
 // Middleware: log time for each request
 router.use((req, res, next) => {
   console.log("Time: ", Date.now());
@@ -64,15 +66,13 @@ router.get("/content/:filename", (req, res) => {
   }
 });
 
-// Catch-all 404 route
-router.use((req, res) => {
-  res.status(404).type("text").send("404 Not Found");
-});
+
 
 //get list all articles
 router.get("/articles", (req, res) => {
-  res.json();
-  res.type("application/json").send(JSON.stringify(db.articles, null, 2));
+ 
+  console.log(db.articles);
+  res.send(JSON.stringify(db.articles, null, 2));
 });
 
 //add a new article
@@ -130,6 +130,10 @@ router.get("/articles/:articleId/comments/:commentId", (req, res) => {
   } else {
     res.status(404).type("text").send("404 Not Found");
   }
+});
+// Catch-all 404 route
+router.use((req, res) => {
+  res.status(404).type("text").send("404 Not Found");
 });
 
 module.exports = router;
