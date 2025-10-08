@@ -2,7 +2,7 @@ const fs = require("fs");
 const pathModule = require("path");
 const express = require("express");
 const router = express.Router();
-const db = require("../lab2/model.js");
+const db = require("../lab2/model.db");
 const cors = require("cors");  
 //use cors middleware
 router.use(cors());
