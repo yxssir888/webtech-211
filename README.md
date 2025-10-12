@@ -49,6 +49,7 @@ Ce projet utilise l'**App Router** de Next.js, qui repose sur la convention de r
 
 
 | `app/` | **Routage Principal** | Contient toutes les routes, les layouts et les pages de l'application. |
+
 | `app/layout.js` | **Root Layout** | Le composant racine partagé entre toutes les pages (définit le `<html>` et le `<body>`). |
 | `app/page.js` | **Page d'Accueil** | Représente la route racine (`/`) de l'application. |
 | `app/dashboard/` | **Segment de Route** | Définit la route `/dashboard`. Peut contenir son propre `page.js` et `layout.js`. |
@@ -75,5 +76,7 @@ Voici quelques ressources pour approfondir votre compréhension de Next.js et de
 
 
  [Documentation Officielle de Next.js](https://nextjs.org/docs) 
- [Principes de l'App Router](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) | Détails sur le routage par fichiers. |
+ 
+ [Principes de l'App Router](https://nextjs.org/docs/app/building-your-application/routing/defining-routes)
+ 
  [Interface utilisateur design ](https://tailwindcss.com) 
