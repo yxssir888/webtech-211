@@ -26,7 +26,7 @@ Assurez-vous d'avoir installé les éléments suivants :
 1.  **Cloner le dépôt :**
     ```bash
     git clone lien git
-    cd [Nom de votre projet]
+    cd client
     ```
 2.  **Installer les dépendances :**
     ```bash
