@@ -1,5 +1,4 @@
-# Client 
-
+# Client
 
 ## 🚀 Démarrer le Projet
 
@@ -9,8 +8,8 @@ Ces instructions vous permettront d'obtenir une copie du projet opérationnelle 
 
 Assurez-vous d'avoir installé les éléments suivants :
 
-* Node.js (version recommandée par Next.js)
-* npm ou yarn (ou pnpm)
+- Node.js (version recommandée par Next.js)
+- npm ou yarn (ou pnpm)
 
 ### Installation
 
@@ -37,8 +36,6 @@ Assurez-vous d'avoir installé les éléments suivants :
 
 Ce projet utilise l'**App Router** de Next.js, qui repose sur la convention de routage par fichiers. La structure des dossiers et les noms de fichiers spéciaux définissent les routes et les interfaces utilisateur (UI).
 
-
-
 | `app/` | **Routage Principal** | Contient toutes les routes, les layouts et les pages de l'application. |
 | `app/layout.js` | **Root Layout** | Le composant racine partagé entre toutes les pages (définit le `<html>` et le `<body>`). |
 | `app/page.js` | **Page d'Accueil** | Représente la route racine (`/`) de l'application. |
@@ -54,17 +51,14 @@ Ce projet utilise l'**App Router** de Next.js, qui repose sur la convention de r
 
 Un grand merci aux personnes suivantes qui ont contribué à l'élaboration et à la maintenance de ce projet :
 
-* **Mohamed KA** 
-* **Adja Sira DOUMBOUYA**
-* **Yassir** 
-
+- **Mohamed KA**
+- **Adja Sira DOUMBOUYA**
+- **Yassir**
 
 ## 🔗 Liens Utiles
 
 Voici quelques ressources pour approfondir votre compréhension de Next.js et de l'App Router :
 
-
-
- [Documentation Officielle de Next.js](https://nextjs.org/docs) 
- [Principes de l'App Router](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) | Détails sur le routage par fichiers. |
- [Interface utilisateur design ](https://tailwindcss.com) 
+[Documentation Officielle de Next.js](https://nextjs.org/docs)
+[Principes de l'App Router](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) | Détails sur le routage par fichiers. |
+[Interface utilisateur design ](https://tailwindcss.com)
