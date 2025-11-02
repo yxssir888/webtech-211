@@ -8,48 +8,44 @@ export default function Home() {
     <div className="bg-white">
       <Header />
 
-      <div className="relative w-full h-[320px]" id="home">
-        <div className="absolute h-screen inset-0 opacity-50 backdrop-opacity-75 ">
-          <img
-            src="https://vistapointe.net/images/restaurant-8.jpg"
-            alt="Background Image"
-            className="object/-cover object-center w-full h-full"
-          />
-        </div>
-        <div className="absolute inset-9 flex flex-col md:flex-row text-black items-center h-screen justify-between">
-          <div className="md:w-1/2 mb-4 md:mb-0">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 leading-tight mb-4">
-              Bienvenue chez{" "}
-              <span className="text-[#491904]">Bappa Restaurant</span>
-            </h1>
-            <p className="text-lg md:text-xl text-black  mb-8">
-              Une expérience culinaire unique où tradition et saveurs se
-              rencontrent.
-            </p>
-            <a
-              href="#contactUs"
-              className="px-6 py-3 bg-[#491904] text-white font-medium rounded-full hover:bg-[#c09858]  transition duration-200"
-            >
-              Contact Us
-            </a>
-          </div>
-        </div>
+    <div className="relative w-full  h-[695px]"  id="home">
+      <div className="absolute inset-0">
+        <img
+          src="https://vistapointe.net/images/restaurant-8.jpg"
+          alt="Background Image"
+          className="object-cover object-center w-full h-full"
+        />
+        {/* Overlay noir semi-transparent */}
+        <div className="absolute inset-0 bg-black/60"></div>
       </div>
 
-      <section className="mt-130" id="menu">
+      <div className="absolute inset-0 flex flex-col md:flex-row text-white items-center justify-between p-8 z-10">
+        <div className="md:w-1/2 mb-4 md:mb-0">
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+            Bienvenue chez <span className="text-[#c09858]">Bappa Restaurant</span>
+          </h1>
+          <p className="text-lg md:text-xl mb-8">
+            Une expérience culinaire unique où tradition et saveurs se rencontrent.
+          </p>
+          <a
+            href="#contactUs"
+            className="px-6 py-3 bg-[#491904] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200"
+          >
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+      <section className="mt-20" id="menu">
         <div className="container mx-auto px-4">
-          <div className="relative inline-flex group justify-center items-center mb-10 ml-[49%]">
-            <div className="absolute transitiona-all duration-1000 opacity-70 -inset-px bg-gradient-to-r from-[#785d05] via-[#401204] to-[#FF675E] rounded-xl blur-lg filter group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200"></div>
-
-            <Link
-              href="/menu"
-              role="button"
-              className="relative inline-flex items-center justify-center px-5 py-2 text-base font-bold text-white transition-all duration-200 bg-gray-900 border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-600 rounded"
-            >
-              <h2>MENU </h2>
-            </Link>
-          </div>
-
+         
+                <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+                
+                PLATS SPÉCIAUX
+              </h2>
+          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
@@ -339,8 +335,7 @@ export default function Home() {
                             viewBox="0 0 24 24"
                             stroke-width="1.5"
                             stroke="currentColor"
-                            className="w-6 h-6"
-                          >
+                            className="w-6 h-6">
                             <path
                               stroke-linecap="round"
                               stroke-linejoin="round"
