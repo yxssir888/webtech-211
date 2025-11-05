@@ -1,114 +1,146 @@
-"use client";
-import React, { useState, useEffect, FormEvent } from "react";
-import axios from "axios";
+'use client';
+
+import React, { useState, useEffect, FormEvent } from 'react';
+import { supabase } from '../../../lib/supabaseClient';
+import { useRouter } from 'next/navigation';
 
 interface Menu {
-  _id: string;
+  id: number;
   title: string;
   description: string;
   image: string;
   price: number;
 }
 
-export default function AboutPage() {
+export default function AdminPage() {
   const [menus, setMenus] = useState<Menu[]>([]);
   const [message, setMessage] = useState<string | null>(null);
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    image: "",
-    price: "",
+    title: '',
+    description: '',
+    image: '',
+    price: '',
   });
   const [isUpdating, setIsUpdating] = useState(false);
-  const [updateMenuId, setUpdateMenuId] = useState<string | null>(null);
+  const [updateMenuId, setUpdateMenuId] = useState<number | null>(null);
+  const router = useRouter();
 
+  // Vérifie l'authentification au chargement
   useEffect(() => {
-    fetchMenus();
-  }, []);
+    const checkAuth = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) {
+        router.push('/login');
+      } else {
+        fetchMenus();
+      }
+    };
+    checkAuth();
+  }, [router]);
 
-  // ---- FETCH ALL ----
-  async function fetchMenus() {
-    try {
-      const response = await axios.get<Menu[]>(
-        "http://localhost:3000/api/menu",
-      );
-      setMenus(response.data);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des menus:", error);
+  // Récupère tous les menus
+  const fetchMenus = async () => {
+    const { data, error } = await supabase
+      .from('menu')
+      .select('*')
+      .order('id', { ascending: true });
+
+    if (error) {
+      console.error('Erreur Supabase:', error);
+      setMessage('Erreur lors du chargement');
+    } else {
+      setMenus(data || []);
     }
-  }
+  };
 
-  // ---- SUBMIT FORM ----
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  // Soumission du formulaire (ajout ou mise à jour)
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       if (isUpdating && updateMenuId) {
-        // Mise à jour d’un menu existant
-        const response = await axios.put(
-          `http://localhost:3000/api/menu/${updateMenuId}`,
-          formData,
+        // Mise à jour
+        const { data: updatedMenu, error } = await supabase
+          .from('menu')
+          .update({
+            title: formData.title,
+            description: formData.description,
+            image: formData.image,
+            price: parseFloat(formData.price),
+          })
+          .eq('id', updateMenuId)
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        setMenus((prev) =>
+          prev.map((m) => (m.id === updateMenuId ? updatedMenu : m))
         );
-        const updatedMenu = response.data as Menu;
-        setMenus((prevMenus) =>
-          prevMenus.map((menu) =>
-            menu._id === updateMenuId ? updatedMenu : menu,
-          ),
-        );
-        setMessage("Plat mis à jour avec succès");
-        setUpdateMenuId(null);
-        setIsUpdating(false);
+        setMessage('Plat mis à jour avec succès');
+        resetForm();
       } else {
-        // Création d’un nouveau menu
-        const response = await axios.post(
-          "http://localhost:3000/api/menu",
-          formData,
-        );
-        const newMenu = response.data as Menu;
-        setMenus((prevMenus) => [...prevMenus, newMenu]);
-        setMessage("Plat ajouté avec succès");
+        // Ajout
+        const { data: newMenu, error } = await supabase
+          .from('menu')
+          .insert([
+            {
+              title: formData.title,
+              description: formData.description,
+              image: formData.image,
+              price: parseFloat(formData.price),
+            },
+          ])
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        setMenus((prev) => [...prev, newMenu]);
+        setMessage('Plat ajouté avec succès');
+        resetForm();
       }
-
-      // Réinitialisation du formulaire
-      setFormData({
-        title: "",
-        description: "",
-        image: "",
-        price: "",
-      });
-    } catch (error) {
-      console.error("Erreur lors de la manipulation du menu:", error);
-      setMessage("Erreur lors de la manipulation du menu");
+    } catch (error: any) {
+      console.error('Erreur:', error);
+      setMessage('Erreur : ' + error.message);
     }
-  }
+  };
 
-  // ---- SUPPRIMER ----
-  async function onDelete(menuId: string) {
-    if (!confirm("Voulez-vous vraiment supprimer ce plat ?")) return;
-    try {
-      await axios.delete(`http://localhost:3000/api/menu/${menuId}`);
-      setMenus((prevMenus) => prevMenus.filter((menu) => menu._id !== menuId));
-      setMessage("Plat supprimé avec succès");
-    } catch (error) {
-      console.error("Erreur lors de la suppression du menu:", error);
-      setMessage("Erreur lors de la suppression du menu");
+  // Réinitialise le formulaire
+  const resetForm = () => {
+    setFormData({ title: '', description: '', image: '', price: '' });
+    setIsUpdating(false);
+    setUpdateMenuId(null);
+  };
+
+  // Suppression
+  const onDelete = async (menuId: number) => {
+    if (!confirm('Voulez-vous vraiment supprimer ce plat ?')) return;
+
+    const { error } = await supabase.from('menu').delete().eq('id', menuId);
+
+    if (error) {
+      setMessage('Erreur lors de la suppression');
+    } else {
+      setMenus((prev) => prev.filter((m) => m.id !== menuId));
+      setMessage('Plat supprimé avec succès');
     }
-  }
+  };
 
-  // ---- MODIFIER ----
-  function onUpdate(menuId: string) {
-    const menuToUpdate = menus.find((menu) => menu._id === menuId);
-    if (menuToUpdate) {
+  // Pré-remplit le formulaire pour modification
+  const onUpdate = (menuId: number) => {
+    const menu = menus.find((m) => m.id === menuId);
+    if (menu) {
       setFormData({
-        title: menuToUpdate.title,
-        description: menuToUpdate.description,
-        image: menuToUpdate.image,
-        price: String(menuToUpdate.price),
+        title: menu.title,
+        description: menu.description,
+        image: menu.image,
+        price: String(menu.price),
       });
       setUpdateMenuId(menuId);
       setIsUpdating(true);
     }
-  }
+  };
 
   return (
     <div className="home h-screen w-[100%] bg-gradient-to-tr from-[#fff] via-[#311919] to-[#574b04] text-black p-6">
@@ -130,20 +162,20 @@ export default function AboutPage() {
           </thead>
           <tbody>
             {menus.map((menu) => (
-              <tr key={menu._id}>
+              <tr key={menu.id}>
                 <td className="border px-2 py-2">{menu.title}</td>
                 <td className="border px-2 py-2">{menu.description}</td>
                 <td className="border px-2 py-2">{menu.image}</td>
                 <td className="border px-2 py-2">{menu.price}</td>
                 <td className="border px-2 py-2">
                   <button
-                    onClick={() => onUpdate(menu._id)}
+                    onClick={() => onUpdate(menu.id)}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2"
                   >
                     Modifier
                   </button>
                   <button
-                    onClick={() => onDelete(menu._id)}
+                    onClick={() => onDelete(menu.id)}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
                   >
                     Supprimer
@@ -164,7 +196,6 @@ export default function AboutPage() {
           className="border border-gray-400 p-2 mb-3 rounded-md w-full"
           type="text"
           placeholder="Nom du Plat"
-          name="title"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
@@ -172,7 +203,6 @@ export default function AboutPage() {
         <textarea
           className="border border-gray-400 p-2 mb-3 rounded-md w-full"
           placeholder="Description"
-          name="description"
           value={formData.description}
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
@@ -183,15 +213,14 @@ export default function AboutPage() {
           className="border border-gray-400 p-2 mb-3 rounded-md w-full"
           type="text"
           placeholder="URL de l'image"
-          name="image"
           value={formData.image}
           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
         />
         <input
           className="border border-gray-400 p-2 mb-3 rounded-md w-full"
           type="number"
+          step="0.01"
           placeholder="Prix (€)"
-          name="price"
           value={formData.price}
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           required
@@ -199,12 +228,12 @@ export default function AboutPage() {
         <button
           className={`${
             isUpdating
-              ? "bg-[#fff] hover:bg-black"
-              : "bg-[#3f2b0e] hover:bg-[#574b04]"
+              ? 'bg-[#fff] hover:bg-black'
+              : 'bg-[#3f2b0e] hover:bg-[#574b04]'
           } text-white font-bold py-2 px-4 rounded-md w-full`}
           type="submit"
         >
-          {isUpdating ? "Modifier" : "Ajouter"}
+          {isUpdating ? 'Modifier' : 'Ajouter'}
         </button>
       </form>
 
