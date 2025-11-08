@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import React, { useState, useEffect, FormEvent } from 'react';
 import { supabase } from '../../../lib/supabaseClient';
 import { useRouter } from 'next/navigation';
+import { useUser, UserButton } from "@clerk/nextjs";
 
 interface Menu {
   id: number;
@@ -13,123 +14,109 @@ interface Menu {
 }
 
 export default function AdminPage() {
+  const router = useRouter();
+  const { user, isLoaded } = useUser();
+
+  // ✅ Attendre Clerk avant de vérifier
+  useEffect(() => {
+    if (isLoaded && !user) {
+      router.push("/login");
+    }
+  }, [isLoaded, user, router]);
+
   const [menus, setMenus] = useState<Menu[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     image: '',
     price: '',
   });
+
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateMenuId, setUpdateMenuId] = useState<number | null>(null);
-  const router = useRouter();
 
-  // Vérifie l'authentification au chargement
+  // ✅ Charge les menus
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data } = await supabase.auth.getSession();
-      if (!data.session) {
-        router.push('/login');
-      } else {
-        fetchMenus();
-      }
-    };
-    checkAuth();
-  }, [router]);
+    if (user) fetchMenus();
+  }, [user]);
 
-  // Récupère tous les menus
   const fetchMenus = async () => {
     const { data, error } = await supabase
-      .from('menu')
-      .select('*')
-      .order('id', { ascending: true });
+      .from("menu")
+      .select("*")
+      .order("id", { ascending: true });
 
-    if (error) {
-      console.error('Erreur Supabase:', error);
-      setMessage('Erreur lors du chargement');
-    } else {
-      setMenus(data || []);
-    }
+    if (error) setMessage("Erreur chargement");
+    else setMenus(data || []);
   };
 
-  // Soumission du formulaire (ajout ou mise à jour)
+  // ✅ Ajouter ou mettre à jour un menu
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      if (isUpdating && updateMenuId) {
-        // Mise à jour
-        const { data: updatedMenu, error } = await supabase
-          .from('menu')
-          .update({
-            title: formData.title,
-            description: formData.description,
-            image: formData.image,
-            price: parseFloat(formData.price),
-          })
-          .eq('id', updateMenuId)
-          .select()
-          .single();
+    if (isUpdating && updateMenuId) {
+      const { data: updatedMenu, error } = await supabase
+        .from("menu")
+        .update({
+          title: formData.title,
+          description: formData.description,
+          image: formData.image,
+          price: parseFloat(formData.price),
+        })
+        .eq("id", updateMenuId)
+        .select()
+        .single();
 
-        if (error) throw error;
-
+      if (!error)
         setMenus((prev) =>
           prev.map((m) => (m.id === updateMenuId ? updatedMenu : m))
         );
-        setMessage('Plat mis à jour avec succès');
-        resetForm();
-      } else {
-        // Ajout
-        const { data: newMenu, error } = await supabase
-          .from('menu')
-          .insert([
-            {
-              title: formData.title,
-              description: formData.description,
-              image: formData.image,
-              price: parseFloat(formData.price),
-            },
-          ])
-          .select()
-          .single();
 
-        if (error) throw error;
-
-        setMenus((prev) => [...prev, newMenu]);
-        setMessage('Plat ajouté avec succès');
-        resetForm();
-      }
-    } catch (error: any) {
-      console.error('Erreur:', error);
-      setMessage('Erreur : ' + error.message);
+      setMessage("Plat modifié avec succès ✅");
+      resetForm();
+      return;
     }
+
+    const { data: newMenu, error } = await supabase
+      .from("menu")
+      .insert([
+        {
+          title: formData.title,
+          description: formData.description,
+          image: formData.image,
+          price: parseFloat(formData.price),
+        },
+      ])
+      .select()
+      .single();
+
+    if (!error) setMenus((prev) => [...prev, newMenu]);
+
+    setMessage("Plat ajouté ✅");
+    resetForm();
   };
 
-  // Réinitialise le formulaire
   const resetForm = () => {
-    setFormData({ title: '', description: '', image: '', price: '' });
+    setFormData({ title: "", description: "", image: "", price: "" });
     setIsUpdating(false);
     setUpdateMenuId(null);
   };
 
-  // Suppression
-  const onDelete = async (menuId: number) => {
-    if (!confirm('Voulez-vous vraiment supprimer ce plat ?')) return;
+  const onDelete = async (id: number) => {
+    if (!confirm("Confirmer ?")) return;
 
-    const { error } = await supabase.from('menu').delete().eq('id', menuId);
+    const { error } = await supabase.from("menu").delete().eq("id", id);
 
-    if (error) {
-      setMessage('Erreur lors de la suppression');
-    } else {
-      setMenus((prev) => prev.filter((m) => m.id !== menuId));
-      setMessage('Plat supprimé avec succès');
+    if (!error) {
+      setMenus((prev) => prev.filter((m) => m.id !== id));
+      setMessage("Plat supprimé ✅");
     }
   };
 
-  // Pré-remplit le formulaire pour modification
-  const onUpdate = (menuId: number) => {
-    const menu = menus.find((m) => m.id === menuId);
+  const onUpdate = (id: number) => {
+    const menu = menus.find((m) => m.id === id);
     if (menu) {
       setFormData({
         title: menu.title,
@@ -137,71 +124,77 @@ export default function AdminPage() {
         image: menu.image,
         price: String(menu.price),
       });
-      setUpdateMenuId(menuId);
+      setUpdateMenuId(id);
       setIsUpdating(true);
     }
   };
 
   return (
-    <div className="home h-screen w-[100%] bg-gradient-to-tr from-[#fff] via-[#311919] to-[#574b04] text-black p-6">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-white mb-4 text-center">
-          Gestion des Menus
-        </h2>
+    <div className="home min-h-screen bg-gradient-to-br from-white via-[#372e2e] to-[#19180f] text-black p-6">
 
-        {/* TABLEAU */}
-        <table className="w-full border border-gray-400 text-black bg-white shadow">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border px-2 py-2">Nom du Plat</th>
-              <th className="border px-2 py-2">Description</th>
-              <th className="border px-2 py-2">Image (URL)</th>
-              <th className="border px-2 py-2">Prix (€)</th>
-              <th className="border px-2 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {menus.map((menu) => (
-              <tr key={menu.id}>
-                <td className="border px-2 py-2">{menu.title}</td>
-                <td className="border px-2 py-2">{menu.description}</td>
-                <td className="border px-2 py-2">{menu.image}</td>
-                <td className="border px-2 py-2">{menu.price}</td>
-                <td className="border px-2 py-2">
-                  <button
-                    onClick={() => onUpdate(menu.id)}
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2"
-                  >
-                    Modifier
-                  </button>
-                  <button
-                    onClick={() => onDelete(menu.id)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded"
-                  >
-                    Supprimer
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* ✅ Header admin */}
+      <div className="flex justify-between items-center text-white mb-6">
+        <h1 className="text-4xl font-bold">Dashboard Admin</h1>
+        <UserButton appearance={{ elements: { userButtonPopoverCard: "bg-white" } }} showName />
       </div>
 
-      {/* FORMULAIRE */}
+      <h2 className="text-3xl font-bold text-white mb-6 text-center">
+        Gestion des Menus
+      </h2>
+
+      {/* ✅ TABLEAU */}
+      <table className="w-full border border-gray-400 bg-white shadow text-black mb-10">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="border px-2 py-2">Nom</th>
+            <th className="border px-2 py-2">Description</th>
+            <th className="border px-2 py-2">Image</th>
+            <th className="border px-2 py-2">Prix €</th>
+            <th className="border px-2 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {menus.map((m) => (
+            <tr key={m.id}>
+              <td className="border px-2 py-2">{m.title}</td>
+              <td className="border px-2 py-2">{m.description}</td>
+              <td className="border px-2 py-2">{m.image}</td>
+              <td className="border px-2 py-2">{m.price}</td>
+              <td className="border px-2 py-2">
+                <button
+                  onClick={() => onUpdate(m.id)}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mr-2"
+                >
+                  Modifier
+                </button>
+                <button
+                  onClick={() => onDelete(m.id)}
+                  className="bg-red-600 hover:bg-red-800 text-white font-bold py-1 px-3 rounded"
+                >
+                  Supprimer
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* ✅ FORMULAIRE */}
       <form
         onSubmit={onSubmit}
-        className="border text-black bg-gray-100 border-gray-600 w-[60%] ml-[20%] shadow-md rounded-md p-6"
+        className="bg-gray-100 border border-gray-600 w-[60%] mx-auto shadow-md rounded-md p-6"
       >
         <input
-          className="border border-gray-400 p-2 mb-3 rounded-md w-full"
+          className="border p-2 mb-3 w-full rounded"
           type="text"
           placeholder="Nom du Plat"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
         />
+
         <textarea
-          className="border border-gray-400 p-2 mb-3 rounded-md w-full"
+          className="border p-2 mb-3 w-full rounded"
           placeholder="Description"
           value={formData.description}
           onChange={(e) =>
@@ -209,31 +202,31 @@ export default function AdminPage() {
           }
           required
         />
+
         <input
-          className="border border-gray-400 p-2 mb-3 rounded-md w-full"
+          className="border p-2 mb-3 w-full rounded"
           type="text"
           placeholder="URL de l'image"
           value={formData.image}
           onChange={(e) => setFormData({ ...formData, image: e.target.value })}
         />
+
         <input
-          className="border border-gray-400 p-2 mb-3 rounded-md w-full"
+          className="border p-2 mb-3 w-full rounded"
           type="number"
           step="0.01"
-          placeholder="Prix (€)"
+          placeholder="Prix €"
           value={formData.price}
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
           required
         />
+
         <button
           className={`${
-            isUpdating
-              ? 'bg-[#fff] hover:bg-black'
-              : 'bg-[#3f2b0e] hover:bg-[#574b04]'
-          } text-white font-bold py-2 px-4 rounded-md w-full`}
-          type="submit"
+            isUpdating ? "bg-black" : "bg-[#3f2b0e]"
+          } text-white font-bold py-2 px-4 rounded w-full`}
         >
-          {isUpdating ? 'Modifier' : 'Ajouter'}
+          {isUpdating ? "Modifier" : "Ajouter"}
         </button>
       </form>
 

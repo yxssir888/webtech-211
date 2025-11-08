@@ -9,6 +9,8 @@
     "vercel-build": "next build"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.34.5",
+    "@supabase/supabase-js": "^2.79.0",
     "eslint": "^9.37.0",
     "eslinter": "^3.2.1",
     "next": "15.5.4",
