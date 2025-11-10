@@ -211,7 +211,7 @@ export default function Home() {
                 <div className="flex justify-center">
                   <img
                     src="https://image3.jdomni.in/banner/13062021/58/97/7C/E53960D1295621EFCB5B13F335_1623567851299.png?output-format=webp"
-                    className="w-32 mb-3"
+                    className="w-32 mb-3 rounded-lg transition-transform transform scale-100 group-hover:scale-105"
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
@@ -225,7 +225,7 @@ export default function Home() {
                 <div className="flex justify-center">
                   <img
                     src="https://image2.jdomni.in/banner/13062021/3E/57/E8/1D6E23DD7E12571705CAC761E7_1623567977295.png?output-format=webp"
-                    className="w-32 mb-3"
+                    className="w-32 mb-3 rounded-lg transition-transform transform scale-100 group-hover:scale-105"
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
@@ -239,7 +239,7 @@ export default function Home() {
                 <div className="flex justify-center">
                   <img
                     src="https://image3.jdomni.in/banner/13062021/16/7E/7E/5A9920439E52EF309F27B43EEB_1623568010437.png?output-format=webp"
-                    className="w-32 mb-3"
+                    className="w-32 mb-3 rounded-lg transition-transform transform scale-100 group-hover:scale-105"
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
@@ -253,7 +253,7 @@ export default function Home() {
                 <div className="flex justify-center">
                   <img
                     src="https://image3.jdomni.in/banner/13062021/EB/99/EE/8B46027500E987A5142ECC1CE1_1623567959360.png?output-format=webp"
-                    className="w-32 mb-3"
+                    className="w-32 mb-3 rounded-lg transition-transform transform scale-100 group-hover:scale-105"
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
@@ -329,19 +329,7 @@ export default function Home() {
                     <a className="flex m-1" href="tel:+33753473804">
                       <div className="flex-shrink-0">
                         <div className="flex items-center justify-between h-10 w-30 rounded-md bg-indigo-500 text-white p-2">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            className="w-6 h-6">
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                            />
-                          </svg>
+                        
                           Call now
                         </div>
                       </div>

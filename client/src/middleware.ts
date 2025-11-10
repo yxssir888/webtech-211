@@ -1,13 +1,15 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { NextResponse } from "next/server";
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 
-export default clerkMiddleware()
+export async function middleware(req: any) {
+  const res = NextResponse.next();
 
-export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
-     "/admin/:path*",   
-  ],
+  const supabase = createMiddlewareClient({ req, res });
+  const { data } = await supabase.auth.getUser();
+
+  if (!data.user && req.nextUrl.pathname.startsWith("/admin")) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  return res;
 }

@@ -1,114 +1,89 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { supabase } from '../../../lib/supabaseClient';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from "react";
+import { supabase } from "../../../lib/supabaseClient";
+import { useRouter } from "next/navigation";
 
-interface MenuItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  price: number;
-}
-
-export default function Menu() {
-  const [menus, setMenus] = useState<MenuItem[]>([]);
+export default function MenuPage() {
+  const [menus, setMenus] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  // Vérifie si l'utilisateur est connecté
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data } = await supabase.auth.getSession();
-      if (!data.session) {
-        router.push('/login');
-      } else {
-        fetchMenus();
-      }
-    };
-    checkAuth();
-  }, [router]);
+    fetchMenus();
+  }, []);
 
-  // Récupère les plats depuis Supabase
   const fetchMenus = async () => {
-    const { data, error } = await supabase
-      .from('menu')
-      .select('*')
-      .order('id', { ascending: true });
+    const { data, error } = await supabase.from("menu").select("*");
 
     if (error) {
-      console.error('Erreur Supabase:', error);
-      setMenus([]);
-    } else {
-      setMenus(data || []);
+      console.error("❌ Erreur Supabase:", error);
+      setLoading(false);
+      return;
     }
+
+    setMenus(data || []);
     setLoading(false);
   };
 
-  // Affichage pendant le chargement
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-xl">Chargement du menu...</p>
+      <div className="flex justify-center items-center min-h-screen bg-[#1a120b] text-[#d4b27c]">
+        <p className="text-2xl animate-pulse">Chargement du menu...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 bg-white">
-      {/* Titre du menu */}
-      <div className="border-b mb-5 flex justify-between text-sm">
-        <div className="text-black flex items-center pb-2 pr-2 border-b-2 border-black uppercase">
-          <svg
-            className="h-6 mr-3"
-            viewBox="0 0 455.005 455.005"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M386.305,120.434c-5.937-5.937-15.552-5.937-21.489,0L227.502,257.748L90.189,120.434c-5.937-5.937-15.552-5.937-21.489,0c-5.937,5.937-5.937,15.552,0,21.489l147.124,147.124c2.969,2.969,6.848,4.453,10.727,4.453s7.758-1.484,10.727-4.453l147.124-147.124C392.242,135.986,392.242,126.371,386.305,120.434z"/>
-          </svg>
-          <span className="font-semibold inline-block">Menu</span>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-[#1a120b] to-[#3a2f24] text-[#f6e7d8] py-10 px-6">
 
-      {/* Grille des plats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-        {menus.length === 0 ? (
-          <p className="col-span-full text-center text-gray-500">
-            Aucun plat disponible pour le moment.
-          </p>
-        ) : (
-          menus.map((item) => (
+      {/* Bouton Retour */}
+      <button
+        onClick={() => router.push("/")}
+        className="mb-10 px-5 py-2 bg-[#8b6f47] hover:bg-[#a98b5a] text-white rounded-lg font-semibold shadow-md transition"
+      >
+        ← Retour
+      </button>
+
+      {/* Titre */}
+      <h1 className="text-5xl font-bold text-center mb-12 text-[#e5c58b] drop-shadow-lg">
+        Nos Plats
+      </h1>
+
+      {menus.length === 0 ? (
+        <p className="text-gray-300 text-center text-xl">Aucun plat disponible.</p>
+      ) : (
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          {menus.map((item) => (
             <div
               key={item.id}
-              className="rounded overflow-hidden shadow-lg flex flex-col"
+              className="bg-[#f8f3e8] text-black rounded-3xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.45)] hover:shadow-[0_0_35px_rgba(0,0,0,0.6)] transform hover:-translate-y-1 hover:scale-105 transition duration-300"
             >
-              <div className="relative">
-                <img
-                  className="w-full h-64 object-cover"
-                  src={item.image || '/placeholder-dish.jpg'} // fallback image
-                  alt={item.title}
-                />
-                <div className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25" />
-              </div>
+              {/* Image */}
+              <img
+                src={item.image || "/placeholder.jpg"}
+                alt={item.title}
+                className="w-full h-48 object-cover"
+              />
 
-              <div className="px-6 py-4 mb-auto">
-                <h3 className="font-medium text-lg mb-2 text-black">
+              {/* Texte */}
+              <div className="p-6">
+                <h3 className="text-2xl font-bold text-[#3b2f2f] mb-2 tracking-wide">
                   {item.title}
                 </h3>
-                <p className="text-gray-500 text-sm">{item.description}</p>
-              </div>
 
-              <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
-                <span className="text-sm font-semibold text-[#ce9d4e]">
-                  {item.price.toFixed(2)} €
-                </span>
-                <span className="text-xs text-gray-500">Disponible</span>
+                <p className="text-[#6b5a4a] text-sm leading-relaxed mb-4">
+                  {item.description}
+                </p>
+
+                <p className="text-[#8b6f47] text-xl font-semibold">
+                  {item.price} €
+                </p>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
