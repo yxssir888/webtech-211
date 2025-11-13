@@ -8,44 +8,53 @@ export default function Home() {
     <div className="bg-white">
       <Header />
 
-    <div className="relative w-full  h-[695px]"  id="home">
-      <div className="absolute inset-0">
-        <img
-          src="https://vistapointe.net/images/restaurant-8.jpg"
-          alt="Background Image"
-          className="object-cover object-center w-full h-full"
-        />
-        {/* Overlay noir semi-transparent */}
-        <div className="absolute inset-0 bg-black/60"></div>
-      </div>
+      <div className="relative w-full h-[695px]" id="home">
+        <div className="absolute inset-0">
+          <img
+            src="https://vistapointe.net/images/restaurant-8.jpg"
+            alt="Background Image"
+            className="object-cover object-center w-full h-full"
+          />
+          {/* Overlay noir semi-transparent */}
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
 
-      <div className="absolute inset-0 flex flex-col md:flex-row text-white items-center justify-between p-8 z-10">
-        <div className="md:w-1/2 mb-4 md:mb-0">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-            Bienvenue chez <span className="text-[#c09858]">Bappa Restaurant</span>
-          </h1>
-          <p className="text-lg md:text-xl mb-8">
-            Une expérience culinaire unique où tradition et saveurs se rencontrent.
-          </p>
-          <a
-            href="#contactUs"
-            className="px-6 py-3 bg-[#491904] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200"
-          >
-            Contact Us
-          </a>
+        <div className="absolute inset-0 flex flex-col md:flex-row text-white items-center justify-between p-8 z-10">
+          <div className="md:w-1/2 mb-4 md:mb-0">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              Bienvenue chez <span className="text-[#c09858]">Bappa Restaurant</span>
+            </h1>
+            <p className="text-lg md:text-xl mb-8">
+              Une expérience culinaire unique où tradition et saveurs se rencontrent.
+            </p>
+
+            {/* BOUTONS ACTION */}
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="/order"
+                className="px-6 py-3 bg-[#491904] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200"
+              >
+                Commander maintenant
+              </a>
+
+              <a
+                href="#contactUs"
+                className="px-6 py-3 border border-white text-white font-medium rounded-full hover:bg-white hover:text-black transition duration-200"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-
+      {/* =================== MENU =================== */}
       <section className="mt-20" id="menu">
         <div className="container mx-auto px-4">
-         
-                <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-                
-                PLATS SPÉCIAUX
-              </h2>
-          
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+            PLATS SPÉCIAUX
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
@@ -65,6 +74,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src="https://www.shbarcelona.fr/blog/fr/wp-content/uploads/2019/06/meal-918638_1280-1.jpg"
@@ -84,6 +94,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src="https://www.au-gre-des-sens.fr/wp-content/uploads/2020/05/Assiette-ve%CC%81ge%CC%81-scaled.jpg"
@@ -102,6 +113,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src="https://lh4.googleusercontent.com/proxy/6LhvnWQ2dtIzW8Oz0wZzxCFOUyTtnZwS2SjaC0LGYyBuFcFq3_ZwaayRZH4cJxALghsj1FubSIPLQ3ZJJZYB0Ex_5srtE0LDW4Bn7moEHVEnNiapuYstzME"
@@ -135,9 +147,8 @@ export default function Home() {
                   Flavoured Spaghetti
                 </h3>
                 <p className="text-gray-700 text-base">
-                  <span className="font-medium underline">
-                    Our speciality is
-                  </span>
+                  <span className="font-medium underline">Our speciality is</span>
+                  {" "}
                   Bappa Flour Mill offers a variety of flavored spaghetti dishes
                   that are sure to tantalize your taste buds. We use only the
                   freshest ingredients Our flavors include: Mango, spinach
@@ -167,6 +178,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ABOUT */}
       <section className="bg-gray-100" id="aboutus">
         <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
@@ -200,6 +212,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* WHY US */}
       <section className="text-gray-700 body-font mt-10">
         <div className="flex justify-center text-3xl font-bold text-gray-800 text-center">
           Why Us?
@@ -265,6 +278,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* GALLERY */}
       <section className="text-gray-700 body-font" id="gallery">
         <div className="flex justify-center text-3xl font-bold text-gray-800 text-center py-10">
           Gallery
@@ -294,6 +308,7 @@ export default function Home() {
               className="aspect-[2/3] h-80 object-cover rounded-lg transition-transform transform scale-100 group-hover:scale-105"
             />
           </div>
+
           <div className="group relative">
             <img
               src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJj/aHw1fHxuYXR1cmV8ZW58MHwwfHx8MTY5NDA5OTcyOXww&ixlib=rb-4.0.3&q=80&w=1080"
@@ -304,6 +319,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CONTACT / LOCATION */}
       <section className="bg-gray-100">
         <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:py-20 lg:px-8">
           <div className="max-w-2xl lg:max-w-4xl mx-auto text-center">
@@ -329,7 +345,6 @@ export default function Home() {
                     <a className="flex m-1" href="tel:+33753473804">
                       <div className="flex-shrink-0">
                         <div className="flex items-center justify-between h-10 w-30 rounded-md bg-indigo-500 text-white p-2">
-                        
                           Call now
                         </div>
                       </div>
