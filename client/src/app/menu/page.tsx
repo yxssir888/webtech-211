@@ -7,24 +7,34 @@ import { useRouter } from "next/navigation";
 export default function MenuPage() {
   const [menus, setMenus] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Formulaire commentaire
+  const [showForm, setShowForm] = useState(false);
+  const [titre, setTitre] = useState("");
+  const [commentaire, setCommentaire] = useState("");
+
+
+  // Auth
+  const [user, setUser] = useState<any>(null);
+
   const router = useRouter();
 
   useEffect(() => {
     fetchMenus();
+  
   }, []);
 
   const fetchMenus = async () => {
     const { data, error } = await supabase.from("menu").select("*");
-
     if (error) {
       console.error("❌ Erreur Supabase:", error);
       setLoading(false);
       return;
     }
-
     setMenus(data || []);
     setLoading(false);
   };
+
 
   if (loading) {
     return (
@@ -35,21 +45,32 @@ export default function MenuPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a120b] to-[#3a2f24] text-[#f6e7d8] py-10 px-6">
+    <div className="min-h-screen bg-[#1a120b] text-[#f6e7d8] py-10 px-6">
+      {/* HEADER ACTIONS */}
+      <div className="flex justify-between items-center max-w-6xl mx-auto mb-10">
+        <button
+          onClick={() => router.back()}
+          className="px-5 py-2 bg-[#8b6f47] hover:bg-[#a98b5a] text-white rounded-lg font-semibold shadow-md transition"
+        >
+          ← Retour
+        </button>
 
-      {/* Bouton Retour */}
-      <button
-        onClick={() => router.push("/")}
-        className="mb-10 px-5 py-2 bg-[#8b6f47] hover:bg-[#a98b5a] text-white rounded-lg font-semibold shadow-md transition"
-      >
-        ← Retour
-      </button>
+        <button
+          onClick={() => router.push('/login')}
+          className="px-5 py-2 bg-[#8b6f47] hover:bg-[#a98b5a] text-white rounded-lg font-semibold shadow-md transition"
+        >
+          + AddCommentaire
+        </button>
+      </div>
 
-      {/* Titre */}
+    
+
+      {/* TITRE */}
       <h1 className="text-5xl font-bold text-center mb-12 text-[#e5c58b] drop-shadow-lg">
         Nos Plats
       </h1>
 
+      {/* LISTE DES PLATS */}
       {menus.length === 0 ? (
         <p className="text-gray-300 text-center text-xl">Aucun plat disponible.</p>
       ) : (
@@ -59,14 +80,12 @@ export default function MenuPage() {
               key={item.id}
               className="bg-[#f8f3e8] text-black rounded-3xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.45)] hover:shadow-[0_0_35px_rgba(0,0,0,0.6)] transform hover:-translate-y-1 hover:scale-105 transition duration-300"
             >
-              {/* Image */}
               <img
                 src={item.image || "/placeholder.jpg"}
                 alt={item.title}
                 className="w-full h-48 object-cover"
               />
 
-              {/* Texte */}
               <div className="p-6">
                 <h3 className="text-2xl font-bold text-[#3b2f2f] mb-2 tracking-wide">
                   {item.title}

@@ -37,19 +37,19 @@ export default function Header() {
 
       {/* NAVIGATION */}
       <nav className="hidden gap-12 lg:flex">
-        <a href="#home" className="text-lg font-semibold text-[#c09858] hover:text-white transition duration-150">
+        <a href="#home" className="text-lg font-semibold text-[#c7a17a] hover:text-white transition duration-150">
           Home
         </a>
-        <a href="#menu" className="text-lg font-semibold text-gray-300 hover:text-[#c09858] transition duration-150">
+        <a href="#menu" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
           Menu
         </a>
-        <a href="#aboutus" className="text-lg font-semibold text-gray-300 hover:text-[#c09858] transition duration-150">
+        <a href="#aboutus" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
           About
         </a>
-        <a href="#gallery" className="text-lg font-semibold text-gray-300 hover:text-[#c09858] transition duration-150">
+        <a href="#gallery" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
           Gallery
         </a>
-        <a href="#contactUs" className="text-lg font-semibold text-gray-300 hover:text-[#c09858] transition duration-150">
+        <a href="#contactUs" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
           Visit Us
         </a>
       </nav>

@@ -10,7 +10,6 @@ export default function AuthPage() {
   const router = useRouter();
   const params = useSearchParams();
 
-  // Token reset password
   const hasRecoveryToken = params.get("access_token");
   const [mode, setMode] = useState<Mode>(hasRecoveryToken ? "reset" : "login");
 
@@ -18,43 +17,57 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
-  // ✅ Vérifier si l'utilisateur est déjà connecté → le rediriger vers /admin
+  //  Vérifier si l'utilisateur est déjà connecté → redirection selon rôle
   useEffect(() => {
     const checkUser = async () => {
       const { data } = await supabase.auth.getUser();
-      if (data.user) router.push("/admin");
+      if (data.user) {
+        const role = data.user.user_metadata?.role || "client";
+        if (role === "admin") router.push("/admin");
+        else router.push("/menu/");
+      }
     };
     checkUser();
   }, []);
 
-  // ✅ LOGIN
+  // LOGIN
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setMessage(null);
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (error) return setMessage("❌ Identifiants incorrects");
+    if (error) return setMessage(" Identifiants incorrects");
 
-    router.push("/admin");
+    // Récupérer le rôle
+    const role = data.user?.user_metadata?.role || "client";
+    if (role === "admin") router.push("/admin");
+    else router.push("/menu");
   };
 
-  // ✅ REGISTER
+  // REGISTER
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     setMessage(null);
 
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        // Role par défaut client
+        data: { role: "client" },
+      },
+    });
 
     if (error) return setMessage("❌ " + error.message);
 
-    setMessage("✅ Vérifiez vos emails pour activer votre compte.");
+    setMessage(" Vérifiez vos emails pour activer votre compte.");
   };
 
-  // ✅ FORGOT PASSWORD
+  // FORGOT PASSWORD
   const handleForgot = async (e: FormEvent) => {
     e.preventDefault();
     setMessage(null);
@@ -68,7 +81,7 @@ export default function AuthPage() {
     setMessage("✅ Email envoyé !");
   };
 
-  // ✅ RESET PASSWORD
+  // RESET PASSWORD
   const handleReset = async (e: FormEvent) => {
     e.preventDefault();
     setMessage(null);
@@ -83,18 +96,19 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-[#3a2f24] to-[#1a120b] text-white p-6">
-
+     
       <div className="bg-[#f8f3e8] text-black p-10 rounded-xl w-full max-w-md shadow-[0_0_20px_rgba(0,0,0,0.4)] border border-[#d1c5b4]">
-
-        {/* Logo Restaurant */}
+        {/* Logo */}
+         <button className="h-4 w-2  text-white">
+            <a href="/" className="absolute top-6 left-6  underline">
+              ← Retour à l'accueil
+            </a>
+          </button>
         <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold tracking-wide text-[#3b2f2f]">
-            🍽️ MonRestaurant
-          </h1>
-          <p className="text-sm text-[#6b5a4a] mt-1">Espace Administrateur</p>
+          <h1 className="text-4xl font-bold tracking-wide text-[#3b2f2f]">Mon-Restaurant</h1>
+          <p className="text-sm text-[#6b5a4a] mt-1">Espace LOGIN/Register</p>
         </div>
 
-        {/* TITRE */}
         <h2 className="text-2xl font-bold mb-6 text-center text-[#3b2f2f]">
           {mode === "login" && "Connexion"}
           {mode === "register" && "Créer un Compte"}
@@ -113,7 +127,6 @@ export default function AuthPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-
             <input
               type="password"
               className="border p-3 rounded bg-white focus:ring-2 focus:ring-[#8b6f47]"
@@ -122,7 +135,6 @@ export default function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
             <button className="bg-[#8b6f47] hover:bg-[#6e5838] text-white py-3 rounded font-bold transition">
               Connexion
             </button>
@@ -140,7 +152,6 @@ export default function AuthPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-
             <input
               type="password"
               className="border p-3 rounded bg-white focus:ring-2 focus:ring-[#8b6f47]"
@@ -149,7 +160,6 @@ export default function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
             <button className="bg-[#8b6f47] hover:bg-[#6e5838] text-white py-3 rounded font-bold transition">
               S’inscrire
             </button>
@@ -167,7 +177,6 @@ export default function AuthPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-
             <button className="bg-[#8b6f47] hover:bg-[#6e5838] text-white py-3 rounded font-bold transition">
               Envoyer le lien
             </button>
@@ -185,17 +194,13 @@ export default function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
             <button className="bg-[#8b6f47] hover:bg-[#6e5838] text-white py-3 rounded font-bold transition">
               Modifier
             </button>
           </form>
         )}
 
-        {/* MESSAGE */}
-        {message && (
-          <p className="mt-4 text-center font-semibold text-[#3b2f2f]">{message}</p>
-        )}
+        {message && <p className="mt-4 text-center font-semibold text-[#3b2f2f]">{message}</p>}
 
         {/* NAVIGATION */}
         <div className="mt-6 text-center text-sm text-[#5a4b3a]">

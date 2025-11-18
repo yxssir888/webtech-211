@@ -1,51 +1,47 @@
 import Image from "next/image";
 import Link from "next/link";
-import Header from "../../component/Header";
-import Footer from "../../component/Footer";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 export default function Home() {
   return (
     <div className="bg-white">
       <Header />
 
-    <div className="relative w-full  h-[695px]"  id="home">
-      <div className="absolute inset-0">
-        <img
-          src="https://vistapointe.net/images/restaurant-8.jpg"
-          alt="Background Image"
-          className="object-cover object-center w-full h-full"
-        />
-        {/* Overlay noir semi-transparent */}
-        <div className="absolute inset-0 bg-black/60"></div>
-      </div>
+      <div className="relative w-full h-[695px]" id="home">
+        <div className="absolute inset-0">
+          <img
+            src="https://vistapointe.net/images/restaurant-8.jpg"
+            alt="Background Image"
+            className="object-cover object-center w-full h-full"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
 
-      <div className="absolute inset-0 flex flex-col md:flex-row text-white items-center justify-between p-8 z-10">
-        <div className="md:w-1/2 mb-4 md:mb-0">
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-            Bienvenue chez <span className="text-[#c09858]">Bappa Restaurant</span>
-          </h1>
-          <p className="text-lg md:text-xl mb-8">
-            Une expérience culinaire unique où tradition et saveurs se rencontrent.
-          </p>
-          <a
-            href="#contactUs"
-            className="px-6 py-3 bg-[#491904] text-white font-medium rounded-full hover:bg-[#c09858] transition duration-200"
-          >
-            Contact Us
-          </a>
+        <div className="absolute inset-0 flex flex-col md:flex-row text-white items-center justify-between p-8 z-10">
+          <div className="md:w-1/2 mb-4 md:mb-0">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+              Bienvenue chez <span className="text-[#c7a17a]">TechnoWeb Restaurant</span>
+            </h1>
+            <p className="text-lg md:text-xl mb-8">
+              Savourez une expérience culinaire authentique où la tradition rencontre la créativité.
+            </p>
+            <a
+              href="#contactUs"
+              className="px-6 py-3 bg-[#491904] text-white font-medium rounded-full hover:bg-[#c7a17a] transition duration-200"
+            >
+             Contacts
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-
 
       <section className="mt-20" id="menu">
         <div className="container mx-auto px-4">
-         
-                <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-                
-                PLATS SPÉCIAUX
-              </h2>
-          
+          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+            NOS PLATS SPÉCIAUX
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
@@ -55,16 +51,14 @@ export default function Home() {
               />
               <div className="p-6 text-center">
                 <h3 className="text-xl font-medium text-gray-800 mb-2">
-                  Wheat Flour Grinding
+                  Pain Maison
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Our wheat flour grinding service provides fresh, high-quality
-                  flour to businesses and individuals in the area. We use
-                  state-of-the-art equipment to grind wheat into flour, and we
-                  offer a variety of flours to meet the needs of our customers.
+                  Découvrez notre pain frais, cuit chaque jour avec passion et des ingrédients de qualité.
                 </p>
               </div>
             </div>
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src="https://www.shbarcelona.fr/blog/fr/wp-content/uploads/2019/06/meal-918638_1280-1.jpg"
@@ -73,17 +67,14 @@ export default function Home() {
               />
               <div className="p-6 text-center">
                 <h3 className="text-xl font-medium text-gray-800 mb-2">
-                  Gram Flour Grinding
+                  Salades Fraîches
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Our gram flour is perfect for a variety of uses, including
-                  baking, cooking, and making snacks. It is also a good source
-                  of protein and fiber.Our gram flour grinding service is a
-                  convenient and affordable way to get the freshest gram flour
-                  possible.
+                  Des salades colorées et gourmandes, préparées avec des légumes frais et des assaisonnements savoureux.
                 </p>
               </div>
             </div>
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src="https://www.au-gre-des-sens.fr/wp-content/uploads/2020/05/Assiette-ve%CC%81ge%CC%81-scaled.jpg"
@@ -92,16 +83,14 @@ export default function Home() {
               />
               <div className="p-6 text-center">
                 <h3 className="text-xl font-medium text-gray-800 mb-2">
-                  Jowar Flour Grinding
+                  Plats Végétariens
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Our jowar grinding service is a convenient and affordable way
-                  to get fresh, high-quality jowar flour. We use
-                  state-of-the-art equipment to grind jowar into a fine powder,
-                  which is perfect for making roti, bread, and other dishes.
+                  Des plats créatifs et sains pour nos clients végétariens, alliant saveurs et équilibre nutritionnel.
                 </p>
               </div>
             </div>
+
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <img
                 src="https://lh4.googleusercontent.com/proxy/6LhvnWQ2dtIzW8Oz0wZzxCFOUyTtnZwS2SjaC0LGYyBuFcFq3_ZwaayRZH4cJxALghsj1FubSIPLQ3ZJJZYB0Ex_5srtE0LDW4Bn7moEHVEnNiapuYstzME"
@@ -110,20 +99,17 @@ export default function Home() {
               />
               <div className="p-6 text-center">
                 <h3 className="text-xl font-medium text-gray-800 mb-2">
-                  Chilli pounding
+                  Piments Maison
                 </h3>
                 <p className="text-gray-700 text-base">
-                  We specializes in the production of high-quality chili powder.
-                  Our chili powder is made from the finest, freshest chilies,
-                  and we use traditional pounding methods to ensure that our
-                  chili powder retains its full flavor and aroma.
+                  Nos piments sont préparés avec soin pour relever chaque plat d’une saveur authentique et épicée.
                 </p>
               </div>
             </div>
 
             <div className="bg-white rounded-lg bg-gradient-to-tr from-pink-300 to-blue-300 p-0.5 shadow-lg overflow-hidden min-h-full">
               <div className="text-center text-white font-medium">
-                Special product
+                Plat Spécial
               </div>
               <img
                 src="https://img.freepik.com/photos-gratuite/plat-poulet-table-restaurant_7939-3126.jpg?semt=ais_hybrid&w=740&q=80"
@@ -132,15 +118,10 @@ export default function Home() {
               />
               <div className="p-6 bg-white text-center rounded-b-lg md:min-h-full">
                 <h3 className="text-xl font-medium text-gray-800 mb-2">
-                  Flavoured Spaghetti
+                  Poulet Rôti
                 </h3>
                 <p className="text-gray-700 text-base">
-                  <span className="font-medium underline">
-                    Our speciality is
-                  </span>
-                  Bappa Flour Mill offers a variety of flavored spaghetti dishes
-                  that are sure to tantalize your taste buds. We use only the
-                  freshest ingredients Our flavors include: Mango, spinach
+                  Notre spécialité : poulet rôti aux herbes, tendre et juteux, servi avec des accompagnements savoureux.
                 </p>
               </div>
             </div>
@@ -153,13 +134,10 @@ export default function Home() {
               />
               <div className="p-6 text-center">
                 <h3 className="text-xl font-medium text-gray-800 mb-2">
-                  Rice Papad
+                  Desserts Maison
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Our company produces high-quality rice papad that is made with
-                  the finest ingredients. We use traditional methods to make our
-                  papad, which gives it a unique flavor and texture. Our papad
-                  is also gluten-free and vegan.
+                  Terminez votre repas en beauté avec nos desserts maison, gourmands et raffinés.
                 </p>
               </div>
             </div>
@@ -172,21 +150,13 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
             <div className="max-w-lg">
               <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
-                About Us
+                À propos de nous
               </h2>
               <p className="mt-4 text-gray-600 text-lg">
-                Bappa Restaurant provides our customers with the highest quality
-                products and services. We offer a wide variety of flours and
-                spices to choose from, and we are always happy to help our
-                customers find the perfect products for their needs. We are
-                committed to providing our customers with the best possible
-                experience. We offer competitive prices, fast shipping, and
-                excellent customer service. We are also happy to answer any
-                questions that our customers may have about our products or
-                services. If you are looking for a flour and spices service
-                business that can provide you with the highest quality products
-                and services, then we are the company for you. We look forward
-                to serving you!
+                Bappa Restaurant vous propose une expérience culinaire exceptionnelle. 
+                Nous utilisons des ingrédients frais et de qualité pour créer des plats 
+                qui raviront vos papilles. Notre équipe passionnée est dédiée à vous offrir 
+                le meilleur service et des saveurs authentiques.
               </p>
             </div>
             <div className="mt-12 md:mt-0">
@@ -202,7 +172,7 @@ export default function Home() {
 
       <section className="text-gray-700 body-font mt-10">
         <div className="flex justify-center text-3xl font-bold text-gray-800 text-center">
-          Why Us?
+          Pourquoi nous choisir ?
         </div>
         <div className="container px-5 py-12 mx-auto">
           <div className="flex flex-wrap text-center justify-center">
@@ -215,7 +185,7 @@ export default function Home() {
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
-                  expérience culinaire unique
+                  Cuisine Authentique
                 </h2>
               </div>
             </div>
@@ -229,7 +199,7 @@ export default function Home() {
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
-                  Reasonable Rates
+                  Prix Raisonnables
                 </h2>
               </div>
             </div>
@@ -243,7 +213,7 @@ export default function Home() {
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
-                  Time Efficiency
+                  Service Rapide
                 </h2>
               </div>
             </div>
@@ -257,7 +227,7 @@ export default function Home() {
                   />
                 </div>
                 <h2 className="title-font font-regular text-2xl text-gray-900">
-                  Expertise in kitchen
+                  Expertise Culinaire
                 </h2>
               </div>
             </div>
@@ -267,7 +237,7 @@ export default function Home() {
 
       <section className="text-gray-700 body-font" id="gallery">
         <div className="flex justify-center text-3xl font-bold text-gray-800 text-center py-10">
-          Gallery
+          Galerie
         </div>
 
         <div className="grid grid-cols-1 place-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
@@ -311,10 +281,10 @@ export default function Home() {
               className="text-3xl font-extrabold text-gray-900"
               id="contactUs"
             >
-              Visit Our Location
+              Visitez notre restaurant
             </h2>
             <p className="mt-3 text-lg text-gray-500">
-              Let us serve you the best
+              Nous serons ravis de vous accueillir et de vous faire découvrir nos spécialités.
             </p>
           </div>
           <div className="mt-8 lg:mt-20">
@@ -324,29 +294,26 @@ export default function Home() {
                   <div className="border-t border-gray-200 px-6 py-4">
                     <h3 className="text-lg font-bold text-gray-900">Contact</h3>
                     <p className="mt-1 font-bold text-gray-600">
-                      <a href="tel:+33">Phone:+33 753473804</a>
+                      <a href="tel:+33">Téléphone: +33 753473804</a>
                     </p>
                     <a className="flex m-1" href="tel:+33753473804">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-between h-10 w-30 rounded-md bg-indigo-500 text-white p-2">
-                        
-                          Call now
-                        </div>
+                      <div className="flex items-center justify-center h-10 w-30 rounded-md bg-indigo-500 text-white p-2">
+                        Appeler maintenant
                       </div>
                     </a>
                   </div>
                   <div className="px-6 py-4">
                     <h3 className="text-lg font-medium text-gray-900">
-                      Our Address
+                      Adresse
                     </h3>
                     <p className="mt-1 text-gray-600">
                       Sale galli, 60 foot road, Latur
                     </p>
                   </div>
                   <div className="border-t border-gray-200 px-6 py-4">
-                    <h3 className="text-lg font-medium text-gray-900">Hours</h3>
+                    <h3 className="text-lg font-medium text-gray-900">Horaires</h3>
                     <p className="mt-1 text-gray-600">
-                      Monday - Sunday : 2pm - 9pm
+                      Lundi - Dimanche : 14h - 21h
                     </p>
                   </div>
                 </div>
