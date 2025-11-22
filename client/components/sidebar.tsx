@@ -39,7 +39,7 @@ export function Sidebar({ currentView, setCurrentView, isOpen, setIsOpen }: Side
         <div className="flex h-full flex-col">
           {/* Logo */}
           <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-6">
-            <h1 className="text-xl font-semibold text-sidebar-foreground">La Maison</h1>
+            <h1 className="text-xl font-semibold text-sidebar-foreground">WebtechResto</h1>
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsOpen(false)}>
               <X className="h-5 w-5" />
             </Button>

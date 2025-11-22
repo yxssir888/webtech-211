@@ -1,27 +1,37 @@
-'use client';
+"use client";
 import Link from "next/link";
 import { useEffect } from "react";
 export default function Header() {
+  useEffect(() => {
+    const handleScroll = () => {
+      const nav = document.getElementById("navbar");
+      if (window.scrollY > 50) {
+        nav.classList.add("bg-[#4a1f01]/95", "shadow-lg", "backdrop-blur-sm");
+        nav.classList.remove("bg-transparent");
+      } else {
+        nav.classList.remove(
+          "bg-[#4a1f01]/95",
+          "shadow-lg",
+          "backdrop-blur-sm",
+        );
+        nav.classList.add("bg-transparent");
+      }
+    };
 
-      useEffect(() => {
-      const handleScroll = () => {
-        const nav = document.getElementById("navbar");
-        if (window.scrollY > 50) {
-          nav.classList.add("bg-[#4a1f01]/95", "shadow-lg", "backdrop-blur-sm");
-          nav.classList.remove("bg-transparent");
-        } else {
-          nav.classList.remove("bg-[#4a1f01]/95", "shadow-lg", "backdrop-blur-sm");
-          nav.classList.add("bg-transparent");
-        }
-      };
-
-      window.addEventListener("scroll", handleScroll);
-      return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
-    <header   id="navbar"  className=" mb-8 flex items-center justify-between py-4 md:mb-12 md:py-8 xl:mb-16 bg-transparent fixed  transition-all duration-300 top-0 left-0 w-full z-50">
+    <header
+      id="navbar"
+      className=" mb-8 flex items-center justify-between py-4 md:mb-12 md:py-8 xl:mb-16 bg-transparent fixed  transition-all duration-300 top-0 left-0 w-full z-50"
+    >
       {/* LOGO */}
-      <a href="/"  className="inline-flex items-center gap-2.5 text-2xl font-bold text-white md:text-3xl" aria-label="logo">
+      <a
+        href="/"
+        className="inline-flex items-center gap-2.5 text-2xl font-bold text-white md:text-3xl"
+        aria-label="logo"
+      >
         <svg
           width="95"
           height="94"
@@ -37,19 +47,34 @@ export default function Header() {
 
       {/* NAVIGATION */}
       <nav className="hidden gap-12 lg:flex">
-        <a href="#home" className="text-lg font-semibold text-[#c7a17a] hover:text-white transition duration-150">
+        <a
+          href="#home"
+          className="text-lg font-semibold text-[#c7a17a] hover:text-white transition duration-150"
+        >
           Home
         </a>
-        <a href="#menu" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
+        <a
+          href="#menu"
+          className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150"
+        >
           Menu
         </a>
-        <a href="#aboutus" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
+        <a
+          href="#aboutus"
+          className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150"
+        >
           About
         </a>
-        <a href="#gallery" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
+        <a
+          href="#gallery"
+          className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150"
+        >
           Gallery
         </a>
-        <a href="#contactUs" className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150">
+        <a
+          href="#contactUs"
+          className="text-lg font-semibold text-gray-300 hover:text-[#c7a17a] transition duration-150"
+        >
           Visit Us
         </a>
       </nav>
@@ -59,9 +84,7 @@ export default function Header() {
         href="/menu"
         className="hidden rounded-full border border-[#c09858] px-8 py-3 text-sm font-semibold text-[#c09858] transition duration-150 hover:bg-[#c09858] hover:text-black md:text-base lg:inline-block"
       >
-   
-          <h2>MENU </h2>
-     
+        <h2>MENU </h2>
       </a>
 
       {/* MENU MOBILE */}
@@ -84,6 +107,5 @@ export default function Header() {
         Menu
       </button>
     </header>
-
   );
 }

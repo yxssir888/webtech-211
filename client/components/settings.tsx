@@ -16,11 +16,11 @@ export function Settings() {
         <div className="space-y-4">
           <div>
             <Label htmlFor="restaurant-name">Restaurant Name</Label>
-            <Input id="restaurant-name" defaultValue="La Maison" className="mt-1 bg-background" />
+            <Input id="restaurant-name" defaultValue="Webtech211" className="mt-1 bg-background" />
           </div>
           <div>
             <Label htmlFor="email">Contact Email</Label>
-            <Input id="email" type="email" defaultValue="contact@lamaison.com" className="mt-1 bg-background" />
+            <Input id="email" type="email" defaultValue="contact@webtech.com" className="mt-1 bg-background" />
           </div>
           <div>
             <Label htmlFor="phone">Phone Number</Label>

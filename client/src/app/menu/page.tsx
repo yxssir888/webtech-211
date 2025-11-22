@@ -56,10 +56,10 @@ export default function MenuPage() {
         </button>
 
         <button
-          onClick={() => router.push('/login')}
+          onClick={() => router.push('/commentaire')}
           className="px-5 py-2 bg-[#8b6f47] hover:bg-[#a98b5a] text-white rounded-lg font-semibold shadow-md transition"
         >
-          + AddCommentaire
+          💬 Ajouter un Commentaire
         </button>
       </div>
 
@@ -95,9 +95,17 @@ export default function MenuPage() {
                   {item.description}
                 </p>
 
-                <p className="text-[#8b6f47] text-xl font-semibold">
-                  {item.price} €
-                </p>
+                <div className="flex items-center justify-between mt-4">
+                  <p className="text-[#8b6f47] text-xl font-semibold">
+                    {item.price} €
+                  </p>
+                  <button
+                    onClick={() => router.push(`/commentaire?menu_id=${item.id}&menu_title=${encodeURIComponent(item.title)}`)}
+                    className="px-4 py-2 bg-[#8b6f47] hover:bg-[#a98b5a] text-white text-sm rounded-lg font-semibold shadow-md transition"
+                  >
+                    💬 Commenter
+                  </button>
+                </div>
               </div>
             </div>
           ))}

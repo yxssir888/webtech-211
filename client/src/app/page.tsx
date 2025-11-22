@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-
+import img from "../../public/image1.png";
 export default function Home() {
   return (
     <div className="bg-white">
@@ -21,16 +21,18 @@ export default function Home() {
         <div className="absolute inset-0 flex flex-col md:flex-row text-white items-center justify-between p-8 z-10">
           <div className="md:w-1/2 mb-4 md:mb-0">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              Bienvenue chez <span className="text-[#c7a17a]">TechnoWeb Restaurant</span>
+              Bienvenue chez{" "}
+              <span className="text-[#c7a17a]">Bappa Restaurant</span>
             </h1>
             <p className="text-lg md:text-xl mb-8">
-              Savourez une expérience culinaire authentique où la tradition rencontre la créativité.
+              Savourez une expérience culinaire authentique où la tradition
+              rencontre la créativité.
             </p>
             <a
               href="#contactUs"
               className="px-6 py-3 bg-[#491904] text-white font-medium rounded-full hover:bg-[#c7a17a] transition duration-200"
             >
-             Contacts
+              Contacts
             </a>
           </div>
         </div>
@@ -54,7 +56,8 @@ export default function Home() {
                   Pain Maison
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Découvrez notre pain frais, cuit chaque jour avec passion et des ingrédients de qualité.
+                  Découvrez notre pain frais, cuit chaque jour avec passion et
+                  des ingrédients de qualité.
                 </p>
               </div>
             </div>
@@ -70,7 +73,8 @@ export default function Home() {
                   Salades Fraîches
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Des salades colorées et gourmandes, préparées avec des légumes frais et des assaisonnements savoureux.
+                  Des salades colorées et gourmandes, préparées avec des légumes
+                  frais et des assaisonnements savoureux.
                 </p>
               </div>
             </div>
@@ -86,7 +90,8 @@ export default function Home() {
                   Plats Végétariens
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Des plats créatifs et sains pour nos clients végétariens, alliant saveurs et équilibre nutritionnel.
+                  Des plats créatifs et sains pour nos clients végétariens,
+                  alliant saveurs et équilibre nutritionnel.
                 </p>
               </div>
             </div>
@@ -102,7 +107,8 @@ export default function Home() {
                   Piments Maison
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Nos piments sont préparés avec soin pour relever chaque plat d’une saveur authentique et épicée.
+                  Nos piments sont préparés avec soin pour relever chaque plat
+                  d’une saveur authentique et épicée.
                 </p>
               </div>
             </div>
@@ -121,7 +127,8 @@ export default function Home() {
                   Poulet Rôti
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Notre spécialité : poulet rôti aux herbes, tendre et juteux, servi avec des accompagnements savoureux.
+                  Notre spécialité : poulet rôti aux herbes, tendre et juteux,
+                  servi avec des accompagnements savoureux.
                 </p>
               </div>
             </div>
@@ -137,7 +144,8 @@ export default function Home() {
                   Desserts Maison
                 </h3>
                 <p className="text-gray-700 text-base">
-                  Terminez votre repas en beauté avec nos desserts maison, gourmands et raffinés.
+                  Terminez votre repas en beauté avec nos desserts maison,
+                  gourmands et raffinés.
                 </p>
               </div>
             </div>
@@ -153,10 +161,11 @@ export default function Home() {
                 À propos de nous
               </h2>
               <p className="mt-4 text-gray-600 text-lg">
-                Bappa Restaurant vous propose une expérience culinaire exceptionnelle. 
-                Nous utilisons des ingrédients frais et de qualité pour créer des plats 
-                qui raviront vos papilles. Notre équipe passionnée est dédiée à vous offrir 
-                le meilleur service et des saveurs authentiques.
+                Bappa Restaurant vous propose une expérience culinaire
+                exceptionnelle. Nous utilisons des ingrédients frais et de
+                qualité pour créer des plats qui raviront vos papilles. Notre
+                équipe passionnée est dédiée à vous offrir le meilleur service
+                et des saveurs authentiques.
               </p>
             </div>
             <div className="mt-12 md:mt-0">
@@ -284,7 +293,8 @@ export default function Home() {
               Visitez notre restaurant
             </h2>
             <p className="mt-3 text-lg text-gray-500">
-              Nous serons ravis de vous accueillir et de vous faire découvrir nos spécialités.
+              Nous serons ravis de vous accueillir et de vous faire découvrir
+              nos spécialités.
             </p>
           </div>
           <div className="mt-8 lg:mt-20">
@@ -307,11 +317,13 @@ export default function Home() {
                       Adresse
                     </h3>
                     <p className="mt-1 text-gray-600">
-                      Sale galli, 60 foot road, Latur
+                      10 Rue Sextius Michel, 75015 Paris
                     </p>
                   </div>
                   <div className="border-t border-gray-200 px-6 py-4">
-                    <h3 className="text-lg font-medium text-gray-900">Horaires</h3>
+                    <h3 className="text-lg font-medium text-gray-900">
+                      Horaires
+                    </h3>
                     <p className="mt-1 text-gray-600">
                       Lundi - Dimanche : 14h - 21h
                     </p>

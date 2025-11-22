@@ -17,7 +17,10 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
-  //  Vérifier si l'utilisateur est déjà connecté → redirection selon rôle
+  //  Nouveau : Sélection du rôle lors de l'inscription
+  const [registerRole, setRegisterRole] = useState("client");
+
+  // Vérifier si déjà connecté
   useEffect(() => {
     const checkUser = async () => {
       const { data } = await supabase.auth.getUser();
@@ -42,13 +45,12 @@ export default function AuthPage() {
 
     if (error) return setMessage(" Identifiants incorrects");
 
-    // Récupérer le rôle
     const role = data.user?.user_metadata?.role || "client";
     if (role === "admin") router.push("/admin");
-    else router.push("/menu");
+    else router.push("/");
   };
 
-  // REGISTER
+  // REGISTER (avec rôle)
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
     setMessage(null);
@@ -57,8 +59,7 @@ export default function AuthPage() {
       email,
       password,
       options: {
-        // Role par défaut client
-        data: { role: "client" },
+        data: { role: registerRole }, //  On stocke le rôle ici
       },
     });
 
@@ -90,7 +91,7 @@ export default function AuthPage() {
 
     if (error) return setMessage("❌ " + error.message);
 
-    setMessage("✅ Mot de passe mis à jour.");
+    setMessage(" Mot de passe mis à jour.");
     setMode("login");
   };
 
@@ -98,12 +99,7 @@ export default function AuthPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-[#3a2f24] to-[#1a120b] text-white p-6">
      
       <div className="bg-[#f8f3e8] text-black p-10 rounded-xl w-full max-w-md shadow-[0_0_20px_rgba(0,0,0,0.4)] border border-[#d1c5b4]">
-        {/* Logo */}
-         <button className="h-4 w-2  text-white">
-            <a href="/" className="absolute top-6 left-6  underline">
-              ← Retour à l'accueil
-            </a>
-          </button>
+      
         <div className="text-center mb-6">
           <h1 className="text-4xl font-bold tracking-wide text-[#3b2f2f]">Mon-Restaurant</h1>
           <p className="text-sm text-[#6b5a4a] mt-1">Espace LOGIN/Register</p>
@@ -141,7 +137,7 @@ export default function AuthPage() {
           </form>
         )}
 
-        {/* REGISTER */}
+        {/* REGISTER AVEC ROLE */}
         {mode === "register" && (
           <form onSubmit={handleRegister} className="flex flex-col gap-4">
             <input
@@ -152,6 +148,7 @@ export default function AuthPage() {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+
             <input
               type="password"
               className="border p-3 rounded bg-white focus:ring-2 focus:ring-[#8b6f47]"
@@ -160,6 +157,17 @@ export default function AuthPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+
+            {/* 🔥 Sélecteur de rôle */}
+            <select
+              className="border p-3 rounded bg-white focus:ring-2 focus:ring-[#8b6f47]"
+              value={registerRole}
+              onChange={(e) => setRegisterRole(e.target.value)}
+            >
+              <option value="client">Client (défaut)</option>
+              <option value="admin">Admin</option>
+            </select>
+
             <button className="bg-[#8b6f47] hover:bg-[#6e5838] text-white py-3 rounded font-bold transition">
               S’inscrire
             </button>

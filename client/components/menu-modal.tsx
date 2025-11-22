@@ -85,18 +85,15 @@ export function MenuModal({ open, onClose, onSave, item }: MenuModalProps) {
             />
           </div>
           <div>
-            <Label htmlFor="category">Category</Label>
-            <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-              <SelectTrigger className="mt-1 bg-background">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Appetizer">Appetizer</SelectItem>
-                <SelectItem value="Main Course">Main Course</SelectItem>
-                <SelectItem value="Dessert">Dessert</SelectItem>
-                <SelectItem value="Beverage">Beverage</SelectItem>
-              </SelectContent>
-            </Select>
+            <Label htmlFor="image">URL img</Label>
+                      <Input
+                        id="image"
+                        type="string"
+                        value={formData.image}
+                        onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                        required
+                        className="mt-1 bg-background"
+                      />
           </div>
           <div>
             <Label htmlFor="price">Price ($)</Label>
