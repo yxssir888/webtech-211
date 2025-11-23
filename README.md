@@ -136,6 +136,24 @@ docker compose down
 
 <div align="center">
 
+📸 **Captures d’écran attendues**  
+## Captures d’écran
+
+### 📸 UI du menu
+![Menu UI](./assets/menu-ui.png)
+
+### 📸 Page admin
+![Admin Panel](./assets/admin-panel.png)
+
+### 📸 Page de détails d’un plat
+![Home Page](./assets/home-page.png)
+
+### 📸 Page commentaire
+![Comments Page](./assets/commentaire.png)
+
+
+---
+
 **Made with  by l'équipe WebTech 211 – ECE Paris 2025**
 
 </div>
