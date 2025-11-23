@@ -23,7 +23,20 @@ L’expérience utilisateur a été pensée pour être fluide, rapide et intuiti
 - Ajout de commentaires par plat avec redirection intelligente (`?next=`)
 
 📸 **Captures d’écran attendues**  
-→ UI du menu – page admin – page de détails d’un plat – page commentaire
+## Captures d’écran
+
+### 📸 UI du menu
+![Menu UI](./assets/menu-ui.png)
+
+### 📸 Page admin
+![Admin Panel](./assets/admin-panel.png)
+
+### 📸 Page de détails d’un plat
+![Home Page](./assets/homepage.png)
+
+### 📸 Page commentaire
+![Comments Page](./assets/commentaire.png)
+
 
 ---
 
@@ -53,6 +66,7 @@ L’expérience utilisateur a été pensée pour être fluide, rapide et intuiti
 | Read | ✔ |
 | Update | ✔ |
 | Delete | ✔ |
+| search | ✔ |
 
 #### Secondary Resource: **Commentaires**
 | Action | Statut |
@@ -147,7 +161,7 @@ L’expérience utilisateur a été pensée pour être fluide, rapide et intuiti
 |--------|---------|
 | **Mohamed** | Ajouter un dashboard utilisateur avec ses commentaires et favoris + upload d’images. |
 | **Adja** | Ajouter la gestion des catégories de plats. |
-| **Sira** | Améliorer le système de notation par étoiles et permettre d’éditer un commentaire. |
+| **Yassir** | Améliorer le système de notation par étoiles et permettre d’éditer un commentaire. |
 
 ###  Course Feedback (Bonus)
 
