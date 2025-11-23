@@ -22,7 +22,7 @@ export default function Home() {
           <div className="md:w-1/2 mb-4 md:mb-0">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
               Bienvenue chez{" "}
-              <span className="text-[#c7a17a]">Bappa Restaurant</span>
+              <span className="text-[#c7a17a]">Webtech Restaurant</span>
             </h1>
             <p className="text-lg md:text-xl mb-8">
               Savourez une expérience culinaire authentique où la tradition

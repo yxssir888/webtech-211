@@ -33,6 +33,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.*
 
 # vercel
 .vercel
@@ -40,3 +41,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+package-lock.json
+package.json
+generate-jwt.js
+
+# Base de données locale (énorme + sensible)
+volumes/
+db/data/
+*.db
+
+# Logs et cache Docker
+.docker/
+.docker-data/
+
+# Fichiers temporaires
+*.log
+node_modules/

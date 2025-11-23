@@ -1,8 +1,16 @@
-# Supabase
-.branches
-.temp
+# Secrets & clés
+.env
+.env.*
 
-# dotenvx
-.env.keys
-.env.local
-.env.*.local
+# Base de données locale (énorme + sensible)
+volumes/
+db/data/
+*.db
+
+# Logs et cache Docker
+.docker/
+.docker-data/
+
+# Fichiers temporaires
+*.log
+node_modules/
