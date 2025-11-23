@@ -32,8 +32,6 @@ export function UserManagement() {
         const { data, error } = await supabase
           .from("users")
           .select("*")
-          .order("created_at", { ascending: false });
-
         if (!mounted) return;
         if (error) {
           console.error("Error fetching users:", error);
@@ -106,7 +104,7 @@ export function UserManagement() {
           if (error) throw error;
           setUsers((prev) =>
             prev.map((u) => (u.id === user.id ? { ...u, ...user } : u)),
-          );
+          );  
         } else {
           // Create new row in users table
           const { data, error } = await supabase
