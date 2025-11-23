@@ -32,7 +32,7 @@ L’expérience utilisateur a été pensée pour être fluide, rapide et intuiti
 ![Admin Panel](./assets/admin-panel.png)
 
 ### 📸 Page de détails d’un plat
-![Home Page](./assets/homepage.png)
+![Home Page](./assets/home-page.png)
 
 ### 📸 Page commentaire
 ![Comments Page](./assets/commentaire.png)
