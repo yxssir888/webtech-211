@@ -68,8 +68,10 @@ npm install
 ```
 
 ### 5. Créer le fichier `.env.local` dnas le client
-
-<<<<<<< HEAD
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://nupshmjnohprwsvcexfn.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51cHNobWpub2hwcndzdmNleGZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4ODMwMTIsImV4cCI6MjA3ODQ1OTAxMn0.nN5Z4erq4Ps-TADXg5dBYXy-uYjXmwEY3I21OsZsaEs  
+```
 ### 6. Lancer le client
 
 
