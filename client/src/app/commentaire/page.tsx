@@ -1,20 +1,17 @@
 import CommentaireContent from "./CommentaireContent";
 
-type PageProps = {
-  searchParams?: {
-    menu_id?: string;
-    menu_title?: string;
-  };
-};
-
-export default function CommentairePage({ searchParams }: PageProps) {
-  const menuId = searchParams?.menu_id || undefined;
-  const menuTitle = searchParams?.menu_title || undefined;
+export default function CommentairePage({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
+  const menuId = searchParams?.menu_id;
+  const menuTitle = searchParams?.menu_title;
 
   return (
     <CommentaireContent
-      menuId={menuId}
-      menuTitle={menuTitle}
+      menuId={menuId as string | undefined}
+      menuTitle={menuTitle as string | undefined}
     />
   );
 }
